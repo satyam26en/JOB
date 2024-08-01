@@ -12,7 +12,7 @@ import pandas as pd
 import plotly.express as px
 
 # Streamlit app title
-st.title('Average Salary and Number of Job Openings ')
+st.title('Experience Category-wise Average Salary and Number of Job Openings')
 
 # Load the dataset from the provided URL
 file_url = "https://raw.githubusercontent.com/satyam26en/JOB/main/Clean_Job_File.csv"
@@ -75,7 +75,7 @@ fig.update_layout(
     },
     yaxis={
         'title': {
-            'text': 'Average Upper Salary',
+            'text': 'Average Salary',
             'font': {
                 'color': 'black',  # Color for y-axis title
                 'size': 24,
