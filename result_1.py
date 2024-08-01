@@ -46,7 +46,7 @@ fig = px.bar(category_stats,
 # Update layout for better visualization and background color change
 fig.update_layout(
     title={
-        'text': 'Average Salary and Job Openings by Experience Category',
+        'text': 'Average Salary and Number of Job Openings ',
         'y':0.9,
         'x':0.5,
         'xanchor': 'center',
