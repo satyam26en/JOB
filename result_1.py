@@ -12,7 +12,7 @@ import pandas as pd
 import plotly.express as px
 
 # Streamlit app title
-st.title('Experience Category-wise Average Salary and Number of Job Openings')
+st.title('Unlock Your Career Potential: Experience-Level Salary Insights & Job Openings')
 
 # Load the dataset from the provided URL
 file_url = "https://raw.githubusercontent.com/satyam26en/JOB/main/Clean_Job_File.csv"
