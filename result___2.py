@@ -13,14 +13,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 import streamlit as st
 
-# Load the dataset from the provided GitHub URL
+
 file_url = "https://raw.githubusercontent.com/satyam26en/JOB/main/Clean_Job_File.csv"
 df = pd.read_csv(file_url)
 
-# Preprocess the responsibilities text
 df['responsibilities'] = df['responsibilities'].fillna('')
-
-# Vectorize the responsibilities text using TF-IDF
 vectorizer = TfidfVectorizer(stop_words='english', max_features=1000)
 X = vectorizer.fit_transform(df['responsibilities'])
 
@@ -120,7 +117,7 @@ fig = px.bar(
     custom_data=['Hover Text']
 )
 
-# Update layout for better visualization and border
+
 fig.update_layout(
     xaxis_title='Job Role',
     yaxis_title='Number of Openings',
@@ -148,7 +145,6 @@ fig.update_layout(
     height=600  # Height of the chart
 )
 
-# Update hover template to show detailed information
 fig.update_traces(hovertemplate='%{customdata[0]}')
 
 # Show the interactive bar chart in Streamlit
