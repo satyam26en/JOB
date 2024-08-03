@@ -11,17 +11,19 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+# Add a title and a subheader
+st.title("Job Openings Analysis")
+st.subheader("Visualizing the Top Locations with Maximum Job Openings in India")
 
 file_url = "https://raw.githubusercontent.com/satyam26en/JOB/main/Clean_Job_File.csv"
 df = pd.read_csv(file_url)
+
 df['location'] = df['location'].fillna('').str.strip()
 df = df[~df['location'].isin(['Permanent Remote', 'Unknown'])]
 
-# Get the top locations based on the number of job openings
 top_locations = df['location'].value_counts().reset_index()
 top_locations.columns = ['location', 'Number of Openings']
 
-# Define the coordinates for the top locations
 location_coordinates = {
     'Bangalore/Bengaluru': [12.9716, 77.5946],
     'Hyderabad/Secunderabad': [17.3850, 78.4867],
@@ -33,20 +35,15 @@ location_coordinates = {
     'Noida': [28.5355, 77.3910]
 }
 
-# Filter to include only the defined locations
 top_locations = top_locations[top_locations['location'].isin(location_coordinates.keys())]
-
-# Add coordinates to the top locations
 top_locations['lat'] = top_locations['location'].apply(lambda x: location_coordinates[x][0])
 top_locations['lon'] = top_locations['location'].apply(lambda x: location_coordinates[x][1])
 
-# Create detailed hover text for each bar
 def create_hover_text(location, count):
     return f"Location: {location}<br>Number of Openings: {count}"
 
 top_locations['Hover Text'] = top_locations.apply(lambda row: create_hover_text(row['location'], row['Number of Openings']), axis=1)
 
-# Create the bar chart using Plotly
 fig_bar = px.bar(
     top_locations,
     x='location',
@@ -88,16 +85,13 @@ fig_bar.update_layout(
 
 fig_bar.update_traces(hovertemplate='%{customdata[0]}')
 
-# Display the bar chart using Streamlit
 st.plotly_chart(fig_bar)
 
-# Add spacing
-st.write(" " * 20)
+# Add a spacer of 20 cm (approx 800 pixels)
+st.markdown("<div style='height: 800px;'></div>", unsafe_allow_html=True)
 
-# Mapbox access token
 mapbox_access_token = "pk.eyJ1IjoibWFwbG9vcGVyIiwiYSI6ImNpa3l6cWR4bTAwOXV0em55aDRqOHY4ajMifQ.NPNAJWiTdh1XYLw-SB8YWQ"
 
-# Create the map using Plotly
 fig_map = px.scatter_mapbox(
     top_locations,
     lat='lat',
@@ -132,5 +126,4 @@ fig_map.update_layout(
     height=600
 )
 
-# Display the map using Streamlit
 st.plotly_chart(fig_map)
