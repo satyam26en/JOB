@@ -11,6 +11,10 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+# Add a title and a subheader
+st.title("Job Openings Analysis")
+st.subheader("Visualizing the Top Locations with Maximum Job Openings in India")
+
 
 file_url = "https://raw.githubusercontent.com/satyam26en/JOB/main/Clean_Job_File.csv"
 df = pd.read_csv(file_url)
