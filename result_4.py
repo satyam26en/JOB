@@ -25,8 +25,6 @@ def filter_experience_level(df, experience_level):
 
 def get_top_companies(df, experience_level='All'):
     df_filtered = filter_experience_level(df, experience_level)
-    print(f"Data for {experience_level} experience level:")  # Debug statement
-    print(df_filtered.head())  # Print the filtered data to check
     top_companies = df_filtered['company'].value_counts().reset_index()
     top_companies.columns = ['Company', 'Number of Openings']
     top_companies = top_companies.head(10)
@@ -52,15 +50,6 @@ fig = px.bar(
     custom_data=['Company']
 )
 
-yaxis_settings = {
-    'All': {'tickvals': [0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500], 'range': [0, 6000]},
-    'Fresher': {'tickvals': [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000], 'range': [0, 1100]},
-    'Junior': {'tickvals': [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000], 'range': [0, 1100]},
-    'Mid-Level': {'tickvals': [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000], 'range': [0, 2200]},
-    'Senior': {'tickvals': [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000], 'range': [0, 2200]},
-    'Expert': {'tickvals': [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500], 'range': [0, 550]}
-}
-
 fig.update_layout(
     title={
         'text': f'Top Hiring Companies Based on Number of Job Openings ({experience_level})',
@@ -76,8 +65,7 @@ fig.update_layout(
     showlegend=False,
     yaxis=dict(
         tickmode='array',
-        tickvals=yaxis_settings[experience_level]['tickvals'],
-        range=yaxis_settings[experience_level]['range'],
+        tickvals=[0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500],
         title='Number of Openings',
         linecolor='black', linewidth=2, mirror=True
     ),
